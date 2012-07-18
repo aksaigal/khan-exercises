@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html data-require="math graphie graphie-helpers-arithmetic word-problems">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Note Reading</title>
+    <script src="../khan-exercise.js"></script>
+</head>
+<body>
+    <div class="exercise">
+    <div class="vars">
+        <var id="noteLength">randFromArray(["quarter","eighth","half","whole"])</var>
+        <var id="signature">randFromArray([2,4,8])</var>
+        <var id="beats">function(){ if(noteLength === "whole"){ return signature; } else if(noteLength === "half"){ return signature/2; } else if(noteLength === "quarter"){ return signature/4; } else { return signature/8; } }</var>
+        <var id="note"> "&lt;img src='" + Khan.urlBase + "images/" + noteLength + "-" + signature + ".png'&gt;"</var>
+   </div>
+
+    <div class="problems">
+        <div>
+            <div class="question">
+                How many beats does this note get in this time signature? </br></br>
+                <var>note</var>
+            </div>
+            <div class="solution" data-forms="integer, proper, improper, mixed, decimal"><var>beats()</var></div>
+            <div class="hints">
+                
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

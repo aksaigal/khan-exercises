@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html data-require="math interactive">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Note Reading</title>
+    <script src="../khan-exercise.js"></script>
+    <script>        
+
+        var playList = function(){
+            $("#play").click(function(){
+                unbindAll(0);
+                unbindAll(1);
+                unbindAll(2);
+                unbindAll(3);
+
+                $("#sortable li audio")[0].addEventListener("ended", function(){
+                    $("#sortable li audio")[1].play();
+                });
+                $("#sortable li audio")[1].addEventListener("ended", function(){
+                    $("#sortable li audio")[2].play();
+                });
+                $("#sortable li audio")[2].addEventListener("ended", function(){
+                    $("#sortable li audio")[3].play();
+                });
+
+                // for(var i=0; i<3; i++){
+                //     var myAudioTag = $("#sortable li audio")[i];
+                //     var nextAudioTag = $("#sortable li audio")[i+1];
+                //     myAudioTag.addEventListener("ended", function(){
+                //         console.log("calling play on "+nextAudioTag);
+                //         nextAudioTag.play();
+                //     });
+                // }
+                $("#sortable li audio")[0].play();
+                
+            });
+
+            $("#playAnswer").click(function(){
+                unbindAll(0);
+                unbindAll(1);
+                unbindAll(2);
+                unbindAll(3);
+
+                $("#1 audio")[0].addEventListener("ended", function(){
+                    $("#2 audio")[0].play();
+                });
+                $("#2 audio")[0].addEventListener("ended", function(){
+                    $("#3 audio")[0].play();
+                });
+                $("#3 audio")[0].addEventListener("ended", function(){
+                    $("#4 audio")[0].play();
+                });
+
+                $("#1 audio")[0].play();
+            });
+        };
+
+        var unbindAll = function(id){
+            var old_element = $("#sortable li audio")[id];
+            var new_element = old_element.cloneNode(true);
+            old_element.parentNode.replaceChild(new_element, old_element);
+        };
+
+        var populateScore = function(){
+            var order = KhanUtil.shuffle([1,2,3,4]);
+            for(i in order){
+                $("#sortable").append("<li id='"+order[i]+"'>" +"<img src='" + Khan.urlBase + "images/" + "beet" + order[i] + ".png'>"+"<audio>"+"<source src='" + Khan.urlBase + "sounds/" + "beet"+order[i]+".mp3' type='audio/mp3'> </audio> </li>");
+            }
+            return order;
+        }
+
+    </script>
+    <style type="text/css">
+        .sortable > ul > li {
+            height: 60px;
+            width: auto;
+            /*max-width: 105px;*/
+            padding: 0 10px;
+            font-size: 11pt;
+            display: table-cell;
+            vertical-align: middle;
+            line-height: 24px;
+        }
+
+        .sort-key {
+            display: none;
+        }
+
+        .single-line {
+            line-height: 50px;
+        }
+
+        .order {
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div class="exercise">
+    <div class="vars">
+        <var id="SORTER">createSorter()</var>
+        <var id="X">playList()</var>
+        <var id="Y">populateScore()</var>
+        
+        <var id="part1"> "&lt;source src='" + Khan.urlBase + "sounds/" + "beet1.mp3' type='audio/mp3'&gt;"</var>
+        <var id="part2"> "&lt;source src='" + Khan.urlBase + "sounds/" + "beet2.mp3' type='audio/mp3'&gt;"</var>
+        <var id="part3"> "&lt;source src='" + Khan.urlBase + "sounds/" + "beet3.mp3' type='audio/mp3'&gt;"</var>
+        <var id="part4"> "&lt;source src='" + Khan.urlBase + "sounds/" + "beet4.mp3' type='audio/mp3'&gt;"</var>
+
+        <var id="image1">"&lt;img src='" + Khan.urlBase + "images/" + "beet1" + ".png'&gt;"</var>
+        <var id="image2">"&lt;img src='" + Khan.urlBase + "images/" + "beet2" + ".png'&gt;"</var>
+        <var id="image3">"&lt;img src='" + Khan.urlBase + "images/" + "beet3" + ".png'&gt;"</var>
+        <var id="image4">"&lt;img src='" + Khan.urlBase + "images/" + "beet4" + ".png'&gt;"</var>
+   </div>
+
+   <div class="problem">
+   </div>
+
+
+    <div class="problems">
+        <div>
+            <div class="question">
+                Arrange the measures in this piece to play <button id="playAnswer"> this </button>. </br></br>
+            </div>
+
+            <ul id="sortable">
+<!--                 <li> <var> image1 </var> <audio> <var> part1 </var> </audio> </li>
+                <li> <var> image2 </var> <audio> <var> part2 </var> </audio> </li>
+                <li> <var> image3 </var> <audio> <var> part3 </var> </audio> </li>
+                <li> <var> image4 </var> <audio> <var> part4 </var> </audio> </li> -->
+            </ul>
+
+            <p><var>SORTER.init("sortable")</var></p>
+            <button id="play"> Play Your Arrangement </button>
+            <div class="solution" data-type="custom">
+                <div class="instruction">
+                    Fun fact: the brontosaurus was the silliest-named dinosaur.
+                </div>
+                <div class="guess">SORTER.getContent()</div>
+                <div class="validator-function">
+                    return true;
+                </div>
+                <div class="show-guess">
+                    SORTER.setContent(guess);
+                </div>
+                <div class="hints">
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+</body>
+</html>

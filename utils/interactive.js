@@ -196,11 +196,11 @@ $.extend(KhanUtil, {
 
         if (movablePoint.visible) {
             graph.style(movablePoint.normalStyle, function() {
-                movablePoint.visibleShape = graph.ellipse(movablePoint.coord, [4 / graph.scale[0], 4 / graph.scale[1]]);
+                movablePoint.visibleShape = graph.ellipse(movablePoint.coord, [16 / graph.scale[0], 16 / graph.scale[1]]);
             });
         }
         movablePoint.normalStyle.scale = 1;
-        movablePoint.highlightStyle.scale = 2;
+        movablePoint.highlightStyle.scale = 1;
 
         // Using the passed coordinates, apply any constraints and return the closest coordinates
         // that match the constraints.

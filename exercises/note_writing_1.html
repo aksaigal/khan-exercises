@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html data-require="math graphie word-problems interactive">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Writing notes</title>
+    <script src="../khan-exercise.js"></script>
+</head>
+<body>
+    <div class="exercise">
+    <div class="vars">
+        <var id="LOWER_BOUND">0</var>
+        <var id="UPPER_BOUND">4</var>
+        <var id="noteName">randFromArray(["A","B","C","D","E","F","G"])</var>
+        <var id="staff">"&lt;img src='" + Khan.urlBase + "images/clef.png'&gt;"</var>
+        <var id = "answer">function(){ if(noteName === "F"){ return 0.5; } else if(noteName === "G"){ return 1.0; } else if(noteName === "A"){ return 1.5; } else if(noteName === "B"){ return 2.0; } else if(noteName === "C"){ return 2.5; } else if(noteName === "D"){ return 3.0; } else { return 3.5; } }</var>
+        <var id = "aSound">"&lt;audio id=15&gt; &lt;source src='" + Khan.urlBase + "sounds/15.mp3'/&gt; &lt;/audio&gt; "</var>
+        <var id = "bSound">"&lt;audio id=20&gt; &lt;source src='" + Khan.urlBase + "sounds/20.mp3'/&gt; &lt;/audio&gt; "</var>
+        <var id = "cSound">"&lt;audio id=25&gt; &lt;source src='" + Khan.urlBase + "sounds/25.mp3'/&gt; &lt;/audio&gt; "</var>
+        <var id = "dSound">"&lt;audio id=30&gt; &lt;source src='" + Khan.urlBase + "sounds/30.mp3'/&gt; &lt;/audio&gt; "</var>
+        <var id = "eSound">"&lt;audio id=35&gt; &lt;source src='" + Khan.urlBase + "sounds/35.mp3'/&gt; &lt;/audio&gt; "</var>
+        <var id = "fSound">"&lt;audio id=5&gt; &lt;source src='" + Khan.urlBase + "sounds/5.mp3'/&gt; &lt;/audio&gt; "</var>
+        <var id = "gSound">"&lt;audio id=10&gt; &lt;source src='" + Khan.urlBase + "sounds/10.mp3'/&gt; &lt;/audio&gt; "</var>
+    </div>
+    <div class="problems">
+        <div id="notes-on-constrained-staff">
+            <var>aSound</var>
+            <div class="question">
+                <p>Drag the orange note to <strong><var>noteName</var></strong>.</p>
+                <span style = "float:left"><var>staff</var></span>
+                <span class="graphie" id="number-line">
+                    init({
+                        range: [[-3, 3], [LOWER_BOUND - .5, UPPER_BOUND + 2.0]]
+                    });
+
+                    style({ strokeWidth: 9.5 });
+                    line([3, LOWER_BOUND], [3, UPPER_BOUND]);
+                    line([-2, .2], [-2, 1.7]);
+                    line([-2.6, 0.8], [-2, 1.9]);
+                    line([-2.7, 0.8], [-1.6, .8])
+                    line([-2, 2.2], [-2, 3.8]);
+                    line([-2.6, 2.8], [-2.6, 3.8]);
+                    line([-2.7, 2.8], [-1.6, 2.8])
+                    style({ strokeWidth: 5.5 });
+                    for (var y = LOWER_BOUND; y &lt;= UPPER_BOUND; y++) {
+                        line([-3, y], [3, y]);
+                    }
+
+
+                    addMouseLayer();
+                    graph.movablePoint = addMovablePoint({ constraints: { constrainX: true }, coord: [0,2]});
+                    graph.movablePoint.onMove = function( x, y ) {
+                        var newy = round(y*2)/2;
+                        if (abs(newy - y) &lt; 0.5) {
+                            y = newy;
+                        }
+                        //var sound = "#".concat((round(y*10)).toString());
+                        //$(sound)[0].play();
+                        return [x, min(max(LOWER_BOUND, y), UPPER_BOUND+.5)];
+                    };
+                </span>
+            </div>
+
+            <div class="solution" data-type="custom">
+                <span class="instruction"> Move the orange note to select your answer. </span>
+                <div class="guess"> graph.movablePoint.coord[1] </div>
+                <div class="validator-function">
+                    return abs((answer()*2)%7 - (guess*2)%7) &lt; 0.001;
+                </div>
+                <div class="show-guess">
+                    graph.movablePoint.setCoord([0, guess]);
+                </div>
+            </div>
+
+            <div class="hints">
+                <p>Watch the fourth video</p>
+                <p>Remember the lines are (from bottom to top) <code>E G B D F </code>. </p>
+                <p>The spaces are <code>F A C E</code>.
+
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

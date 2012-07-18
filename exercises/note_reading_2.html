@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html data-require="math graphie graphie-helpers-arithmetic word-problems">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Reading Accidentals</title>
+    <script src="../khan-exercise.js"></script>
+</head>
+<body>
+    <div class="exercise">
+    <div class="vars">
+        <var id="sharpOrFlat">random() &lt; 0.5 ? "sharp" : "flat"</var>
+        <var id="noteName">sharpOrFlat === "sharp" ? randFromArray(["A","C","D","F","G"]) : randFromArray(["A","B","D","E","G"])</var>
+        <var id="note">noteName != "A" && noteName != "B" && noteName != "C" && random() &lt; 0.5 ? "&lt;img src='" + Khan.urlBase + "images/" + noteName + sharpOrFlat + "low.png'&gt;" : "&lt;img src='" + Khan.urlBase + "images/" + noteName + sharpOrFlat + ".png'&gt;"</var>
+    </div>
+
+    <div class="problems">
+        <div>
+            <div class="problem">
+            </div>
+
+            <div class="question">
+                Name this note: </br></br>
+                <var>note</var>
+            </div>
+            <div class="solution" data-type="multiple">
+                <span class="sol short" data-fallback="H" data-type="text"><var>noteName</var></span>
+                <span class="sol" data-type="list" data-choices="['', 'sharp', 'flat']"><var>sharpOrFlat</var></span>
+        </div>
+            <div class="hints">
+                
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+</html>
